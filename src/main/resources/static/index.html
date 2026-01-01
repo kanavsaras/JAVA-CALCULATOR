@@ -5,88 +5,93 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Spring Boot Calculator</title>
     <style>
-    :root {
-        --primary: #4f46e5;
-        --primary-hover: #4338ca;
-        --bg: #f8fafc;
-        --card: #ffffff;
-        --text: #1e293b;
-    }
+        :root {
+            --primary: #4f46e5;
+            --primary-hover: #4338ca;
+            --bg: #f8fafc;
+            --card: #ffffff;
+            --text: #1e293b;
+        }
 
-    body { 
-        font-family: 'Inter', system-ui, sans-serif; 
-        background: var(--bg); 
-        color: var(--text);
-        display: flex; flex-direction: column; align-items: center; 
-        padding: 40px 20px; margin: 0;
-    }
+        body { 
+            font-family: 'Inter', system-ui, sans-serif; 
+            background: var(--bg); 
+            color: var(--text);
+            display: flex; flex-direction: column; align-items: center; 
+            padding: 40px 20px; margin: 0;
+        }
 
-    .container { width: 100%; max-width: 450px; }
+        .container { width: 100%; max-width: 450px; }
 
-    .calc-card { 
-        background: var(--card); padding: 2rem; border-radius: 16px; 
-        box-shadow: 0 10px 25px -5px rgba(0,0,0,0.1); margin-bottom: 24px;
-    }
+        .calc-card { 
+            background: var(--card); padding: 2rem; border-radius: 16px; 
+            box-shadow: 0 10px 25px -5px rgba(0,0,0,0.1); margin-bottom: 24px;
+        }
 
-    h2, h3 { margin-top: 0; color: #0f172a; font-weight: 700; }
+        h2, h3 { margin-top: 0; color: #0f172a; font-weight: 700; }
 
-    .input-group { display: flex; gap: 10px; margin-bottom: 20px; }
-    
-    input, select { 
-        flex: 1; padding: 12px; border: 1px solid #e2e8f0; 
-        border-radius: 8px; outline: none; transition: border 0.2s;
-    }
+        .input-group { display: flex; gap: 10px; margin-bottom: 20px; }
+        
+        input, select { 
+            flex: 1; padding: 12px; border: 1px solid #e2e8f0; 
+            border-radius: 8px; outline: none; transition: border 0.2s;
+        }
 
-    input:focus { border-color: var(--primary); ring: 2px var(--primary); }
+        input:focus { border-color: var(--primary); }
 
-    button { 
-        background: var(--primary); color: white; border: none; 
-        padding: 14px; border-radius: 8px; font-weight: 600; 
-        cursor: pointer; width: 100%; transition: background 0.2s;
-    }
+        button { 
+            background: var(--primary); color: white; border: none; 
+            padding: 14px; border-radius: 8px; font-weight: 600; 
+            cursor: pointer; width: 100%; transition: background 0.2s;
+        }
 
-    button:hover { background: var(--primary-hover); }
+        button:hover { background: var(--primary-hover); }
 
-    #result-display { 
-        margin-top: 20px; padding: 15px; background: #f1f5f9; 
-        border-radius: 8px; text-align: center; 
-    }
+        #result-display { 
+            margin-top: 20px; padding: 15px; background: #f1f5f9; 
+            border-radius: 8px; text-align: center; 
+        }
 
-    #history-list { list-style: none; padding: 0; }
+        #history-list { list-style: none; padding: 0; margin-top: 15px; }
 
-    .history-item {
-        background: white; padding: 12px; border-radius: 8px;
-        margin-bottom: 8px; border: 1px solid #e2e8f0;
-        display: flex; justify-content: space-between; font-size: 0.9rem;
-    }
-</style>
+        .history-item {
+            background: #f8fafc; padding: 12px; border-radius: 8px;
+            margin-bottom: 8px; border: 1px solid #e2e8f0;
+            display: flex; justify-content: space-between; font-size: 0.9rem;
+        }
+    </style>
 </head>
 <body>
 
-    <div class="calc-card">
-        <h2>Java Web Calculator</h2>
-        
-        <div class="input-group">
-            <input type="number" id="num1" placeholder="Number 1">
-            <select id="operation">
-                <option value="add">+</option>
-                <option value="subtract">-</option>
-                <option value="multiply">×</option>
-                <option value="divide">÷</option>
-                <option value="mod">%</option>
-            </select>
-            <input type="number" id="num2" placeholder="Number 2">
+    <div class="container">
+        <div class="calc-card">
+            <h2>Java Web Calculator</h2>
+            
+            <div class="input-group">
+                <input type="number" id="num1" placeholder="Num 1">
+                <select id="operation">
+                    <option value="add">+</option>
+                    <option value="subtract">-</option>
+                    <option value="multiply">×</option>
+                    <option value="divide">÷</option>
+                    <option value="mod">%</option>
+                </select>
+                <input type="number" id="num2" placeholder="Num 2">
+            </div>
+
+            <button id="calcBtn">Calculate</button>
+
+            <div id="result-display">
+                <h3>Result: <span id="answer" style="color: var(--primary);">?</span></h3>
+            </div>
         </div>
 
-        <button id="calcBtn">Calculate</button>
-
-        <div id="result-display">
-            <h3>Result: <span id="answer">?</span></h3>
+        <div class="calc-card">
+            <h3>Recent Calculations</h3>
+            <ul id="history-list">
+                </ul>
         </div>
-    <div class="calc-card" style="margin-top: 20px;">
-    <h3>Recent Calculations</h3>
-    <ul id="history-list" style="list-style: none; padding: 0;"></ul>
-</div>
+    </div>
 <script>
     const answerDisplay = document.getElementById('answer');
     const historyList = document.getElementById('history-list');
